@@ -15,11 +15,22 @@ app.post('/users', async(req, res) => {
     }catch(err){
         console.log(err)
         return res.status(500).json(err)
+    } 
+})
+
+
+app.get('/users', async(req, res) => {
+    try {
+   const users = await User.findAll()
+   return res.json(users)
+    }catch(err){
+        console.log(err)
+        return res.status(500).json({ error: "Something went wrong"})
     }
 })
 app.listen({ port: 5000 }, async() => {
 console.log("Server up on http://localhost:5000")
-await sequelize.sync({ force : true })
-console.log("Database synced")
+await sequelize.authenticate()
+console.log("Database connected!")
 })
    
